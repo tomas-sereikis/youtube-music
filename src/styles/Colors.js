@@ -1,0 +1,32 @@
+export default {
+  WHITE: '#FFFFFF',
+  TRANSPARENT: 'rgba(0, 0, 0, 0)',
+
+  GRAY_50: '#FAFAFA',
+  GRAY_100: '#F5F5F5',
+  GRAY_200: '#EEEEEE',
+  GRAY_300: '#E0E0E0',
+  GRAY_400: '#BDBDBD',
+  GRAY_500: '#9E9E9E',
+  GRAY_600: '#757575',
+  GRAY_700: '#616161',
+  GRAY_800: '#424242',
+  GRAY_900: '#212121',
+
+  GREEN_500: '#43A047',
+
+  RED_50: '#FBE9E7',
+  RED_100: '#FFCCBC',
+  RED_500: '#ff5e3a',
+
+  TEAL_50: '#E0F2F1',
+  TEAL_100: '#B2DFDB',
+  TEAL_200: '#80CBC4',
+  TEAL_300: '#4DB6AC',
+  TEAL_400: '#26A69A',
+  TEAL_500: '#009688',
+  TEAL_600: '#00897B',
+  TEAL_700: '#00796B',
+  TEAL_800: '#00695C',
+  TEAL_900: '#004D40'
+};

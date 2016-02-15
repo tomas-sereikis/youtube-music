@@ -1,0 +1,22 @@
+{
+  "name": "YoutubeMusic",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "react-native start",
+    "bundle": "react-native bundle --dev false --entry-file index.ios.js --bundle-output ./ios/main.jsbundle --minify"
+  },
+  "dependencies": {
+    "hex-rgba": "^1.0.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "querystring": "^0.2.0",
+    "react-native": "^0.19.0",
+    "react-native-fs": "^1.2.0",
+    "react-native-slider": "^0.4.0",
+    "react-native-spinkit": "0.0.5",
+    "react-native-vector-icons": "^1.1.1",
+    "react-native-webview-bridge": "^0.16.1",
+    "uuid-v4": "^0.1.0"
+  }
+}
