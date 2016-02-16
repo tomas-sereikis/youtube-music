@@ -11,8 +11,8 @@ For music download app uses [Youtube MP3](http://www.youtube-mp3.org/).
 
 
 ```sh
-git clone https://github.com/Tomas-Sereikis/youtube-music-app.git
-cd youtube-music-app
+git clone https://github.com/Tomas-Sereikis/youtube-music.git
+cd youtube-music
 
 npm install
 rnpm link
