@@ -16,6 +16,14 @@ npm install
 rnpm link
 ```
 
+Create `src/PrivateConfig.js` file and add following code.
+```javascript
+export default {
+  GOOGLE_AUTH_CLIENT_ID: '-- your google client id --',
+  GOOGLE_AUTH_KEY: '-- your google auth key --',
+};
+```
+
 Open `YoutubeMusic.xcodeproj` on your Xcode and run on your simulator or local device.
 
 This is work in progress React Native playground...
