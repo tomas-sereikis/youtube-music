@@ -8,12 +8,13 @@ import Positions from '../../styles/Positions';
 import PlaylistRequest from './PlaylistRequest';
 import PlayerListComponent from '../player/PlayerListComponent';
 import PlaylistErrorResponse from './PlaylistErrorResponse';
+import PlaylistItemRowComponent from './PlaylistItemRowComponent';
 import LoadingPage from '../LoadingPage';
 import ListView from 'ListView';
-import ListViewRow from '../listView/ListViewRow';
 import ContentCentred from '../ContentCentred';
 import Router from '../../services/Router';
 import TitleParser from '../../services/TitleParser';
+import IconSources from '../../services/IconSources';
 
 export default class PlaylistItemComponent extends LoadingPage {
   static propTypes = {
@@ -29,11 +30,11 @@ export default class PlaylistItemComponent extends LoadingPage {
     return {
       title,
       component: PlaylistItemComponent,
-      leftButtonTitle: en_US.BACK,
+      leftButtonIcon: IconSources.getIcon('Back'),
       onLeftButtonPress() {
         Router.pop()
       },
-      rightButtonTitle: en_US.PLAYER,
+      rightButtonIcon: IconSources.getIcon('Player'),
       onRightButtonPress() {
         Router.push('player');
       },
@@ -54,9 +55,8 @@ export default class PlaylistItemComponent extends LoadingPage {
    */
   playlistContent() {
     return PlaylistRequest.getPlaylistItem(this.id).then(content => {
-      var sources = this.dataSource.cloneWithRows(content);
       if (content.length) {
-        return this.setAsyncState({content, sources});
+        return content;
       } else {
         return Promise.reject();
       }
@@ -64,7 +64,13 @@ export default class PlaylistItemComponent extends LoadingPage {
       PlaylistErrorResponse.handle(err.error);
       this.setState({content: []});
       return Promise.reject();
-    });
+    }).then(this.updateContentState.bind(this));
+  }
+
+  updateContentState(content) {
+    this.content = content;
+    this.sources = this.dataSource.cloneWithRows(content);
+    return this.setAsyncState({content, sources: this.sources});
   }
 
   /**
@@ -72,12 +78,18 @@ export default class PlaylistItemComponent extends LoadingPage {
    * @returns {XML}
    */
   renderRow(content) {
-    var {title, thumbnail: image} = content;
-    var parsed = TitleParser.parse(title);
-    var last = lastOf(content, this.state.content);
-    var onPress = () => Router.push('playlistVideo', {content});
-    var props = {title: parsed.artist, subtitle: parsed.title, last, image, onPress};
-    return <ListViewRow {...props} />;
+    var parsed = TitleParser.parse(content.title);
+    var props = {
+      videoId: content.videoId,
+      title: parsed.artist,
+      subtitle: parsed.title,
+      downloaded: content.downloaded,
+      last: lastOf(content, this.state.content),
+      thumbnail: content.thumbnail,
+      thumbnailHigh: content.thumbnailHigh
+    };
+
+    return <PlaylistItemRowComponent {...props}  />;
   }
 
   /**

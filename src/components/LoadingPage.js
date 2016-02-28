@@ -1,10 +1,11 @@
 'use strict';
 
 import React from 'react-native';
+import Progress from 'react-native-progress/CircleSnail';
 import Component from './Component';
 import View from 'View';
 import Positions from '../styles/Positions';
-import Loading from './Loading';
+import Colors from '../styles/Colors';
 
 export default class LoadingPage extends Component {
   constructor(...args) {
@@ -40,7 +41,7 @@ export default class LoadingPage extends Component {
     } else {
       return (
         <View style={Positions.CONTAINER_CENTER}>
-          <Loading />
+          <Progress size={40} thickness={2} color={[Colors.TEAL_500]} />
         </View>
       );
     }

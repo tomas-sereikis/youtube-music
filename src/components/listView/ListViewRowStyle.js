@@ -23,7 +23,8 @@ export default StyleSheet.create({
   },
   BUTTON: {
     alignItems: 'center',
-    padding: 11,
-    paddingRight: 10
+    padding: 10,
+    paddingRight: 12,
+    paddingBottom: 8
   }
 });

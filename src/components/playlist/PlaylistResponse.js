@@ -3,6 +3,7 @@
 import map from 'lodash/collection/map';
 import filter from 'lodash/collection/filter';
 import moment from 'moment';
+import StorageHandler from '../../services/StorageHandler';
 
 export default {
   /**
@@ -29,17 +30,21 @@ export default {
    */
   playlistItem(response) {
     var items = filter(response.items, item => item.snippet.hasOwnProperty('thumbnails'));
-    return map(items, function (item) {
+    return Promise.all(map(items, function (item) {
       var {thumbnails} = item.snippet;
-      return {
-        id: item.id,
-        publishedAt: moment(item.snippet.publishedAt),
-        title: item.snippet.title,
-        description: item.snippet.description,
-        thumbnail: thumbnails.default.url,
-        thumbnailHigh: thumbnails.high.url,
-        videoId: item.snippet.resourceId.videoId
-      };
-    });
+      var {videoId} = item.snippet.resourceId;
+      return StorageHandler.getVideoContent(videoId).then(entity => {
+        return Promise.resolve({
+          id: item.id,
+          publishedAt: moment(item.snippet.publishedAt),
+          title: item.snippet.title,
+          description: item.snippet.description,
+          thumbnail: thumbnails.default.url,
+          thumbnailHigh: thumbnails.high.url,
+          downloaded: entity !== null,
+          videoId
+        });
+      });
+    }));
   }
 };

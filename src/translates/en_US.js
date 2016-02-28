@@ -21,3 +21,4 @@ export const BACK = 'Back';
 export const DELETE = 'Delete';
 export const CANCEL = 'Cancel';
 export const OPEN_IN_YOUTUBE = 'Open In Youtube';
+export const ERROR = 'Error';

@@ -11,7 +11,12 @@ RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(initWithURL:(NSString *) url) {
   if (!([url length] > 0)) return;
   
-  NSURL *soundUrl = [[NSURL alloc] initFileURLWithPath:url];
+  NSURL *soundUrl;
+  if ([url hasPrefix:@"http"]) {
+    soundUrl = [[NSURL alloc] initWithString:url];
+  } else {
+    soundUrl = [[NSURL alloc] initFileURLWithPath:url];
+  }
   
   self.audioItem = [AVPlayerItem playerItemWithURL:soundUrl];
   self.audioPlayer = [AVPlayer playerWithPlayerItem:self.audioItem];

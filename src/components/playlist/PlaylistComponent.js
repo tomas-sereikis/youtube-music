@@ -13,14 +13,15 @@ import PlaylistErrorResponse from './PlaylistErrorResponse';
 import Router from '../../services/Router';
 import LoadingPage from '../LoadingPage';
 import View from 'View';
+import IconSources from '../../services/IconSources';
 
 export default class PlaylistComponent extends LoadingPage {
   static toRoute() {
     return {
       title: en_US.PLAYLIST_COMPONENT_TITLE,
       component: PlaylistComponent,
-      leftButtonTitle: en_US.LOGOUT,
-      rightButtonTitle: en_US.PLAYER,
+      leftButtonIcon: IconSources.getIcon('SignOut'),
+      rightButtonIcon: IconSources.getIcon('Player'),
       onLeftButtonPress() {
         AuthorizationStorage.destroy();
         Router.push('initial');

@@ -3,11 +3,11 @@
 import React from 'react-native';
 import NavigatorIOS from 'NavigatorIOS';
 import StatusBarIOS from 'StatusBarIOS';
+import IconSources from './services/IconSources';
 import InitialComponent from './components/initial/InitialComponent';
 import PlayerListComponent from './components/player/PlayerListComponent';
 import PlaylistComponent from './components/playlist/PlaylistComponent';
 import PlaylistItemComponent from './components/playlist/PlaylistItemComponent';
-import PlaylistVideoComponent from './components/playlist/PlaylistVideoComponent';
 import AuthorizationComponent from './components/authorization/AuthorizationComponent';
 import AuthorizationStorage from './components/authorization/AuthorizationStorage';
 import LoadingPage from './components/LoadingPage';
@@ -17,7 +17,6 @@ StatusBarIOS.setStyle('light-content');
 Router.addComponent('initial', InitialComponent);
 Router.addComponent('playlist', PlaylistComponent);
 Router.addComponent('playlistItem', PlaylistItemComponent);
-Router.addComponent('playlistVideo', PlaylistVideoComponent);
 Router.addComponent('authorization', AuthorizationComponent);
 Router.addComponent('player', PlayerListComponent);
 
@@ -33,6 +32,7 @@ export default class MainContainer extends LoadingPage {
   authorization() {
     return AuthorizationStorage.token().then(token => {
       Router.setInitialComponent(token ? 'playlist' : 'initial');
+      return IconSources.waitForConvert;
     });
   }
 

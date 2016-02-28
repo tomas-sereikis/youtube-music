@@ -15,14 +15,25 @@ export default class Component extends React.Component {
     this.isComponentMounted = true;
   }
 
+  /**
+   * @returns {boolean}
+   */
   isMounted() {
     return this.isComponentMounted;
   }
 
+  /**
+   * @param {string} ref
+   */
   getRef(ref) {
     return this.refs[ref];
   }
 
+  /**
+   * @param {Object} state
+   * @param {Function} [callback]
+   * @returns {Promise}
+   */
   setAsyncState(state, callback) {
     return new Promise(resolve => {
       super.setState(state, function () {

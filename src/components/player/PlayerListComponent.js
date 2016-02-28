@@ -5,6 +5,9 @@ import lastOf from '../../services/unit/lastOf';
 import isEqual from 'lodash/lang/isEqual';
 import first from 'lodash/array/first';
 import React from 'react-native';
+import Progress from 'react-native-progress';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import TouchableOpacity from 'TouchableOpacity';
 import View from 'View';
 import Text from 'Text';
 import StyleSheet from 'StyleSheet';
@@ -14,7 +17,6 @@ import ActionSheetIOS from 'ActionSheetIOS';
 import Colors from '../../styles/Colors';
 import Positions from '../../styles/Positions';
 import StorageHandler from '../../services/StorageHandler';
-import Loading from '../Loading';
 import PlayerComponent from './PlayerComponent';
 import ContentCentred from '../ContentCentred';
 import PlayerStateStorage from './PlayerStateStorage';
@@ -22,6 +24,8 @@ import TitleParser from '../../services/TitleParser';
 import Router from '../../services/Router';
 import Component from '../Component';
 import ListViewRow from '../listView/ListViewRow';
+import ListViewRowStyle from '../listView/ListViewRowStyle';
+import IconSources from '../../services/IconSources';
 
 var styles = StyleSheet.create({
   listItem: {
@@ -77,7 +81,7 @@ export default class PlayerListComponent extends Component {
     return {
       title: en_US.PLAYER_LIST_COMPONENT_TITLE,
       component: PlayerListComponent,
-      leftButtonTitle: en_US.BACK,
+      leftButtonIcon: IconSources.getIcon('Back'),
       onLeftButtonPress() {
         Router.pop();
       }
@@ -297,12 +301,23 @@ export default class PlayerListComponent extends Component {
       last: lastOf(content, this.state.content),
       image: StorageHandler.thumbnailPath(content.videoId),
       selected: content.videoId === currentVideoId,
-      actions: [
-        { icon: 'more-vert',
-          onPress: this.handleOnMoreActionPress.bind(this, content) }
-      ],
+      actions: [this.renderListItemOption(this.handleOnMoreActionPress.bind(this, content))],
       onPress: this.play.bind(this, content)
     };
+  }
+
+  /**
+   * @param {Function} onPress
+   * @returns {XML}
+   */
+  renderListItemOption(onPress) {
+    return (
+      <TouchableOpacity onPress={onPress}>
+        <View style={ListViewRowStyle.BUTTON}>
+          <Ionicons color={Colors.TEAL_500} size={24} name='android-more-vertical' />
+        </View>
+      </TouchableOpacity>
+    );
   }
 
   /**
@@ -360,7 +375,7 @@ export default class PlayerListComponent extends Component {
         ? <ContentCentred text={en_US.PLAYER_LIST_COMPONENT_NO_CONTENT} />
         : this.renderListView();
     } else {
-      return <ContentCentred element={<Loading />} />;
+      return <ContentCentred element={<Progress.CircleSnail size={40} color={[Colors.TEAL_500]} thickness={2} />} />;
     }
   }
 }

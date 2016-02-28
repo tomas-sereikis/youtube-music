@@ -10,6 +10,7 @@ import Positions from '../../styles/Positions';
 import Button from '../buttons/Button';
 import Router from '../../services/Router';
 import Component from '../Component';
+import IconSources from '../../services/IconSources';
 
 export default class InitialComponent extends Component {
   static toRoute() {
@@ -17,7 +18,7 @@ export default class InitialComponent extends Component {
       title: en_US.INITIAL_COMPONENT_TITLE,
       component: InitialComponent,
       leftButtonTitle: ' ',
-      rightButtonTitle: en_US.PLAYER,
+      rightButtonIcon: IconSources.getIcon('Player'),
       onRightButtonPress() {
         Router.push('player');
       }

@@ -10,13 +10,14 @@ import AuthorizationStorage from './AuthorizationStorage';
 import Positions from '../../styles/Positions';
 import Router from '../../services/Router';
 import Component from '../Component';
+import IconSources from '../../services/IconSources';
 
 export default class AuthorizationComponent extends Component {
   static toRoute() {
     return {
       title: en_US.AUTHORIZATION_COMPONENT_TITLE,
       component: AuthorizationComponent,
-      leftButtonTitle: en_US.BACK,
+      leftButtonIcon: IconSources.getIcon('Back'),
       onLeftButtonPress() {
         Router.pop();
       }

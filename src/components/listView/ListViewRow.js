@@ -5,7 +5,7 @@ import map from 'lodash/collection/map';
 import React, {PropTypes} from 'react-native';
 import TouchableHighlight from 'TouchableHighlight';
 import TouchableOpacity from 'TouchableOpacity';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import Colors from '../../styles/Colors';
 import Component from '../Component';
 import ListViewRowStyle from './ListViewRowStyle';
@@ -15,29 +15,18 @@ import Image from 'Image';
 import Text from 'Text';
 
 export default class ListViewRow extends Component {
-  static ITEM_SIZE = 57;
+  static ITEM_SIZE = 56;
   static propTypes = {
     title: PropTypes.string.isRequired,
     subtitle: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     last: PropTypes.bool.isRequired,
     onPress: PropTypes.func.isRequired,
+    onPressIn: PropTypes.func,
+    onPressOut: PropTypes.func,
     selected: PropTypes.bool,
     actions: PropTypes.array
   };
-
-  /**
-   * @returns {XML}
-   */
-  renderAction(icon, index, onPress) {
-    return (
-      <TouchableOpacity onPress={onPress} key={index}>
-        <View style={ListViewRowStyle.BUTTON}>
-          <MaterialIcons color={Colors.TEAL_500} size={24} name={icon} />
-        </View>
-      </TouchableOpacity>
-    );
-  }
 
   /**
    * @returns {XML}
@@ -47,7 +36,7 @@ export default class ListViewRow extends Component {
     if (isArray(actions)) {
       return (
         <View>
-          {map(actions, ({icon, onPress}, index) => this.renderAction(icon, index, onPress))}
+          {map(actions, (component, index) => <View key={index}>{component}</View>)}
         </View>
       );
     }
@@ -63,7 +52,9 @@ export default class ListViewRow extends Component {
       <TouchableHighlight
         delayPressIn={0}
         underlayColor={Colors.GRAY_100}
-        onPress={this.props.onPress}>
+        onPress={this.props.onPress}
+        onPressIn={this.props.onPressIn}
+        onPressOut={this.props.onPressOut}>
         <View style={[ListViewRowStyle.CONTAINER, borderBottomWidth]}>
           <Image source={{uri: this.props.image}} style={ListViewRowStyle.IMAGE} />
           <View style={ListViewRowStyle.CONTENT}>

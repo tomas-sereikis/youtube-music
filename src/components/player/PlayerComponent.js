@@ -2,6 +2,7 @@
 
 import debounce from 'lodash/function/debounce';
 import React from 'react-native';
+import Progress from 'react-native-progress/CircleSnail';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import TouchableOpacity from 'TouchableOpacity';
 import StyleSheet from 'StyleSheet';
@@ -11,7 +12,6 @@ import NativeModules from 'NativeModules';
 import Slider from 'react-native-slider';
 import Positions from '../../styles/Positions';
 import Colors from '../../styles/Colors';
-import Loading from '../Loading';
 import TransparentView from '../TransparentView';
 import PlayerEvents from './PlayerEvents';
 import Component from '../Component';
@@ -69,8 +69,12 @@ export default class PlayerComponent extends Component {
   }, 10);
 
   audioPlayer(audioUrl) {
-    RNAudioPlayerURL.destroy();
+    if (this.audioPlay) {
+      RNAudioPlayerURL.destroy();
+      this.audioPlay = false;
+    }
     RNAudioPlayerURL.initWithURL(audioUrl);
+    this.audioPlay = true;
   }
 
   componentWillUnmount() {
@@ -172,7 +176,7 @@ export default class PlayerComponent extends Component {
         </TouchableOpacity>
       );
     } else if (playStatus === 0) {
-      return <Loading color={Colors.GRAY_100} size={size} />;
+      return <Progress color={[Colors.GRAY_100]} size={size} thickness={2} />;
     } else {
       return (
         <TouchableOpacity onPress={this.handleOnPausePress.bind(this)}>
