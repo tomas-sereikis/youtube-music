@@ -5,7 +5,7 @@ Offline Youtube Music Player (iOS) - implemented on [React Native](https://faceb
 
 For music download app uses [Youtube MP3](http://www.youtube-mp3.org/).
 
-![Preview 1](/preview.png)
+![Preview 1](/preview_1.png)
 
 ![Preview 2](/preview_2.png)
 
